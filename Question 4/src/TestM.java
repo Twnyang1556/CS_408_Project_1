@@ -1,8 +1,22 @@
-
+import org.junit.Before;
+import org.junit.Test;
 
 public class TestM {
+	private M m;
+	// Setup variable for testing
+	@Before
+	public void setUp() {
+		m = new M();
+	}
+    // Node coverage
 
-    /* add your test code here */
+
+	//N1
+	@Test
+	public void testN1() {
+
+	}
+
     
 }
 
