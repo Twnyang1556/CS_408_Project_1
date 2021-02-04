@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class CFGTest {
     public void addNode() {
         cfg.addNode(1000, m_m, m);
         CFG.Node n = new CFG.Node(1000, m_m, m);
-        assertTrue(cfg.nodes.contains(n));
+        Assert.assertTrue(cfg.nodes.contains(n));
     }
 
     @Test
@@ -63,7 +64,7 @@ public class CFGTest {
         CFG.Node n = new CFG.Node(1000, m_m, m);
         CFG.Node nn = new CFG.Node(1001, m_m, m);
 
-        assertTrue(cfg.edges.get(n).contains(nn));
+        Assert.assertTrue(cfg.edges.get(n).contains(nn));
     }
 
     @Test
@@ -72,7 +73,7 @@ public class CFGTest {
         cfg.addEdge(1000, m_m, m, 1001, m_m, m);
 
         CFG.Node nn = new CFG.Node(1001, m_m, m);
-        assertTrue(cfg.nodes.contains(nn));
+        Assert.assertTrue(cfg.nodes.contains(nn));
     }
 
     @Test
@@ -81,7 +82,7 @@ public class CFGTest {
                 1001, m_m, m);
         cfg.addNode(1000, m_m, m);
         CFG.Node n = new CFG.Node(1000, m_m, m);
-        assertTrue(cfg.edges.get(n).size() == 1);
+        Assert.assertTrue(cfg.edges.get(n).size() == 1);
     }
 
     @Test
@@ -95,9 +96,9 @@ public class CFGTest {
 
         cfg.deleteNode(nn.position, nn.method, nn.clazz);
 
-        assertFalse(cfg.nodes.contains(nn));
+        Assert.assertFalse(cfg.nodes.contains(nn));
         assertEquals(sizeExpected - 1, cfg.nodes.size());
-        assertFalse(cfg.edges.get(n).contains(nn));
+        Assert.assertFalse(cfg.edges.get(n).contains(nn));
     }
 
     @Test
@@ -132,7 +133,7 @@ public class CFGTest {
 
         // remove the added edge
         cfg.deleteEdge(n.position, n.method, n.clazz, nn.position, nn.method, nn.clazz);
-        assertFalse(cfg.edges.get(n).contains(nn));
+        Assert.assertFalse(cfg.edges.get(n).contains(nn));
         assertEquals(sizeExpected - 1, cfg.edges.get(n).size());
     }
 
@@ -199,25 +200,25 @@ public class CFGTest {
 
     @Test
     public void reachable_true() {
-        assertTrue(cfg.isReachable(0, m_m, m, 
+        Assert.assertTrue(cfg.isReachable(0, m_m, m,
                     3, m_m, m));
     }
 
     @Test
     public void reachable_unreachable() {
-        assertFalse(cfg.isReachable(59, m_m, m, 
+        Assert.assertFalse(cfg.isReachable(59, m_m, m,
                     0, m_m, m));
     }
 
     @Test
     public void reachable_missingSrc() {
-        assertFalse(cfg.isReachable(-100, m_m, m,
+        Assert.assertFalse(cfg.isReachable(-100, m_m, m,
                     0, m_m, m));
     }
 
     @Test
     public void reachable_missingTarget() {
-        assertFalse(cfg.isReachable(0, m_m, m, 1000, m_m, m));
+        Assert.assertFalse(cfg.isReachable(0, m_m, m, 1000, m_m, m));
     } 
 
 }
