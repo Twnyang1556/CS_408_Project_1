@@ -1,7 +1,25 @@
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
+import org.junit.*;
+import static org.junit.Assert.*;
+
+import java.io.PrintStream;
+import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
 
 public class TestM {
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	private final PrintStream originalOut = System.out;
+	private final PrintStream originalErr = System.err;
+
+	@Before
+	public void setUpStreams() {
+		System.setOut(new PrintStream(outContent));
+		System.setErr(new PrintStream(errContent));
+	}
+
 	private M m;
 	// Setup variable for testing
 	@Before
@@ -12,9 +30,32 @@ public class TestM {
 
 
 	//N1
+	// Test when arg.length = 0 and i == 0
 	@Test
-	public void testN1() {
+	public void testLen0i0() {
+		m.m("", 0);
+		Assert.assertEquals("zero\n", outContent.toString());
+	}
 
+	// Test when arg.length = 1 and i != 0
+	@Test
+	public void testLen1i1() {
+		m.m("a", 1);
+		Assert.assertEquals("a\n", outContent.toString());
+	}
+
+	// Test when arg.length = 2 and i != 0
+	@Test
+	public void testLen2i1() {
+		m.m("ab", 1);
+		Assert.assertEquals("b\n", outContent.toString());
+	}
+
+
+	@After
+	public void restoreStreams() {
+		System.setOut(originalOut);
+		System.setErr(originalErr);
 	}
 
     

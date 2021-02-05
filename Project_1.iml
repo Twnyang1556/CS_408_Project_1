@@ -18,5 +18,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="asm-7.3.1" level="project" />
+    <orderEntry type="library" name="asm-analysis-7.3.1" level="project" />
+    <orderEntry type="library" name="asm-commons-7.3.1" level="project" />
+    <orderEntry type="library" name="asm-tree-7.3.1" level="project" />
   </component>
 </module>
