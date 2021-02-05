@@ -1,12 +1,10 @@
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
-import org.junit.*;
-import static org.junit.Assert.*;
 
-import java.io.PrintStream;
-import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 public class TestM {
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -34,21 +32,21 @@ public class TestM {
 	@Test
 	public void testLen0i0() {
 		m.m("", 0);
-		Assert.assertEquals("zero\n", outContent.toString());
+		Assert.assertEquals("zero\r\n", outContent.toString());
 	}
 
 	// Test when arg.length = 1 and i != 0
 	@Test
 	public void testLen1i1() {
 		m.m("a", 1);
-		Assert.assertEquals("a\n", outContent.toString());
+		Assert.assertEquals("a\r\n", outContent.toString());
 	}
 
 	// Test when arg.length = 2 and i != 0
 	@Test
 	public void testLen2i1() {
 		m.m("ab", 1);
-		Assert.assertEquals("b\n", outContent.toString());
+		Assert.assertEquals("b\r\n", outContent.toString());
 	}
 
 
