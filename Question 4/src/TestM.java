@@ -34,21 +34,24 @@ public class TestM {
 	// Test when arg.length = 0 and i == 0
 	@Test
 	public void testLen0i0() {
-		m.m("", 0);
+		String testStr = "";
+		m.m(testStr, testStr.length());
 		Assert.assertEquals("zero\r\n", outContent.toString());
 	}
 
 	// Test when arg.length = 1 and i == 0
 	@Test
 	public void testLen1i0() {
-		m.m("a", 1);
+		String testStr = "a";
+		m.m(testStr, testStr.length());
 		Assert.assertEquals("a\r\n", outContent.toString());
 	}
 
 	// Test when arg.length = 2 and i == 0
 	@Test
 	public void testLen2i0() {
-		m.m("ab", 1);
+		String testStr = "ab";
+		m.m(testStr, testStr.length());
 		Assert.assertEquals("b\r\n", outContent.toString());
 	}
 	// End node coverage
@@ -56,6 +59,8 @@ public class TestM {
 	/* Edge coverage:
 	   TR: {(1,2),(1,3),(2,3),(3,4),(3,5),(3,6),(3,7),(6,7),(4,8),(5,8),(7,8),
 	   (8,10),(8,9),(10,11),(9,11)}
+	   Test Path: {[1,2,3,4,8,10,11],  [1,2,3,5,8,9,11], [1,2,3,6,7,8,9,11],
+	   [1,2,3,7,8,9,11], [1,3,7,8,9,11]}
 	 */
 	//TODO: Add test case for EC
 	//End EC
