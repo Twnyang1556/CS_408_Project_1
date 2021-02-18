@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/" />
@@ -27,8 +27,9 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="asm-tree-7.3.1" level="project" />
     <orderEntry type="library" name="asm-7.3.1" level="project" />
     <orderEntry type="library" name="asm-analysis-7.3.1" level="project" />
+    <orderEntry type="library" name="asm-commons-7.3.1" level="project" />
+    <orderEntry type="library" name="asm-tree-7.3.1" level="project" />
   </component>
 </module>
