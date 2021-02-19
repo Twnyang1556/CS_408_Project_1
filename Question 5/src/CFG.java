@@ -1,10 +1,7 @@
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CFG {
     Set<Node> nodes = new HashSet<Node>();
@@ -36,15 +33,12 @@ public class CFG {
 	}
     }
 
+    // The test cases covers NC and EC.
     public void addNode(int p, MethodNode m, ClassNode c) {
-	// ...
 		// Create the new node
 		Node n = new Node(p,m,c);
 		// Determine if the node already exists in the nodes set
-		if (nodes.contains(n)) {
-			// Delete the created node
-			n = null;
-		} else {
+		if (!nodes.contains(n)) {
 			// Add the node into the nodes set and put node in edges
 			// with empty set of edge
 			nodes.add(n);
@@ -59,10 +53,8 @@ public class CFG {
 		Node n1 = new Node(p1, m1, c1);
 		Node n2 = new Node(p2, m2, c2);
 		// Check if nodes set contains n1 and n2, add them if necessary
-		if (!nodes.contains(n1)) {
+		if (!nodes.contains(n1) || !nodes.contains(n2)) {
 			addNode(p1, m1, c1);
-		}
-		if (!nodes.contains(n2)) {
 			addNode(p2, m2, c2);
 		}
 		// Add n2 to hashset of n1 in edge set
@@ -100,20 +92,57 @@ public class CFG {
 		// Check if both nodes exists in nodes set
 		Node n1 = new Node(p1,m1,c1);
 		Node n2 = new Node(p2,m2,c2);
+		Node temp;
+		if (!(nodes.contains(n1)) || !(nodes.contains(n2))) {
+			return false;
+		}
 
-		if ((nodes.contains(n1)) && (nodes.contains(n2))) {
-			Set<Node> list = edges.get(n1);
-			while (list.size() != 0) {
-				for (Node n: list) {
-					if (edges.get(n).contains(n2)) {
-						return true;
-					} else {
-						list = edges.get(n);
-						break;
-					}
+
+		Set<Node> visited = new HashSet<Node>();
+
+		// Create a queue for BFS
+		LinkedList<Node> queue = new LinkedList<Node>();
+
+		// Mark the current node as visited and enqueue it
+		visited.add(n1);
+		queue.add(n1);
+
+		while (queue.size() != 0)
+		{
+			// Dequeue a vertex from queue and print it
+			temp = queue.poll();
+
+			// Get all adjacent vertices of the dequeued vertex s
+			// If a adjacent has not been visited, then mark it
+			// visited and enqueue it
+			Iterator i = edges.get(temp).iterator();
+			while (i.hasNext())
+			{
+				Node next = (Node) i.next();
+				if (next.equals(n2)) {
+					return true;
+				}
+				if (!visited.contains(next))
+				{
+					visited.add(next);
+					queue.add(next);
 				}
 			}
 		}
+
+//		if ((nodes.contains(n1)) && (nodes.contains(n2))) {
+//			Set<Node> list = edges.get(n1);
+//
+//			while (list.size() != 0) {
+//				for (Node n: list) {
+//					if (edges.get(n).contains(n2)) {
+//						return true;
+//					} else {
+//						list = edges.get(n);
+//					}
+//				}
+//			}
+//		}
 		return false;
 	}
 }

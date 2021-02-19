@@ -57,6 +57,17 @@ public class CFGTest {
         Assert.assertTrue(cfg.nodes.contains(n));
     }
 
+    // Added test case to make sure node being added doesn't already exist in the CFG
+    // Covers NC for add_node()
+    @Test
+    public void addNode_addNew() {
+        if (!cfg.nodes.contains(new CFG.Node(1000,m_m,m))){
+            cfg.addNode(1000, m_m, m);
+            CFG.Node n = new CFG.Node(1000, m_m, m);
+            Assert.assertTrue(cfg.nodes.contains(n));
+        }
+    }
+
     @Test
     public void addEdge() {
         cfg.addEdge(1000, m_m, m,
