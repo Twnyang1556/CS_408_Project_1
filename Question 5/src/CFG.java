@@ -93,56 +93,35 @@ public class CFG {
 		Node n1 = new Node(p1,m1,c1);
 		Node n2 = new Node(p2,m2,c2);
 		Node temp;
-		if (!(nodes.contains(n1)) || !(nodes.contains(n2))) {
-			return false;
-		}
+		if ((nodes.contains(n1)) && (nodes.contains(n2))) {
+			// Created a visited set to keep track of visited nodes
+			Set<Node> visited = new HashSet<Node>();
 
+			// Create a queue for BFS
+			LinkedList<Node> queue = new LinkedList<Node>();
 
-		Set<Node> visited = new HashSet<Node>();
+			// Mark the current node as visited and enqueue it
+			visited.add(n1);
+			queue.add(n1);
 
-		// Create a queue for BFS
-		LinkedList<Node> queue = new LinkedList<Node>();
+			while (queue.size() != 0) {
+				// Dequeue a node from queue
+				temp = queue.poll();
 
-		// Mark the current node as visited and enqueue it
-		visited.add(n1);
-		queue.add(n1);
-
-		while (queue.size() != 0)
-		{
-			// Dequeue a vertex from queue and print it
-			temp = queue.poll();
-
-			// Get all adjacent vertices of the dequeued vertex s
-			// If a adjacent has not been visited, then mark it
-			// visited and enqueue it
-			Iterator i = edges.get(temp).iterator();
-			while (i.hasNext())
-			{
-				Node next = (Node) i.next();
-				if (next.equals(n2)) {
-					return true;
-				}
-				if (!visited.contains(next))
-				{
-					visited.add(next);
-					queue.add(next);
+				// Iterate through each node in the set of adjacent nodes and
+				// see if it is equal to the destination
+				for (Node next : edges.get(temp)) {
+					if (next.equals(n2)) {
+						return true;
+					}
+					// If the node hasn't ben visited, add to the queue to visit
+					if (!visited.contains(next)) {
+						visited.add(next);
+						queue.add(next);
+					}
 				}
 			}
 		}
-
-//		if ((nodes.contains(n1)) && (nodes.contains(n2))) {
-//			Set<Node> list = edges.get(n1);
-//
-//			while (list.size() != 0) {
-//				for (Node n: list) {
-//					if (edges.get(n).contains(n2)) {
-//						return true;
-//					} else {
-//						list = edges.get(n);
-//					}
-//				}
-//			}
-//		}
 		return false;
 	}
 }
