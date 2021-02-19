@@ -58,14 +58,16 @@ public class CFGTest {
     }
 
     // Added test case to make sure node being added doesn't already exist in the CFG
-    // Covers NC for add_node()
+    // Now all addNode() test cases satisfies NC and EC
     @Test
     public void addNode_addNew() {
-        if (!cfg.nodes.contains(new CFG.Node(1000,m_m,m))){
-            cfg.addNode(1000, m_m, m);
-            CFG.Node n = new CFG.Node(1000, m_m, m);
-            Assert.assertTrue(cfg.nodes.contains(n));
+        int position = 1000;
+        while (cfg.nodes.contains(new CFG.Node(position, m_m, m))) {
+            position++;
         }
+        int original = cfg.nodes.size();
+        cfg.addNode(position, m_m, m);
+        Assert.assertEquals(cfg.nodes.size(), original + 1);
     }
 
     @Test
@@ -84,6 +86,21 @@ public class CFGTest {
         cfg.addEdge(1000, m_m, m, 1001, m_m, m);
 
         CFG.Node nn = new CFG.Node(1001, m_m, m);
+        Assert.assertTrue(cfg.nodes.contains(nn));
+    }
+
+    /* Improved addEdge_oneNewNode() to make sure that at least one node in test case is new
+     */
+    @Test
+    public void addEdge_oneNewNodeImproved() {
+        int position = 1000;
+        while (cfg.nodes.contains(new CFG.Node(position,m_m,m))) {
+            position++;
+        }
+        cfg.addNode(1000, m_m, m);
+        cfg.addEdge(1000, m_m, m, position, m_m, m);
+
+        CFG.Node nn = new CFG.Node(position, m_m, m);
         Assert.assertTrue(cfg.nodes.contains(nn));
     }
 
