@@ -121,18 +121,14 @@ public class CFG {
 		if ((nodes.contains(n1)) && (nodes.contains(n2))) {
 			// Created a visited set to keep track of visited nodes
 			Set<Node> visited = new HashSet<Node>();
-
 			// Create a queue for BFS
 			LinkedList<Node> queue = new LinkedList<Node>();
-
 			// Mark the current node as visited and enqueue it
 			visited.add(n1);
 			queue.add(n1);
-
 			while (queue.size() != 0) {
 				// Dequeue a node from queue
 				temp = queue.poll();
-
 				// Iterate through each node in the set of adjacent nodes and
 				// see if it is equal to the destination
 				for (Node next : edges.get(temp)) {
