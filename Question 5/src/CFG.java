@@ -33,11 +33,6 @@ public class CFG {
 	}
     }
 
-    /* Original test cases didn't satisfy NC nor EC, since we cannot be sure that
-	   the added node in the original test cases is indeed new to the CFG. I added
-	   addNode_addNew() to make sure that the added node doesn't already exist in
-	   the CFG.
-     */
     public void addNode(int p, MethodNode m, ClassNode c) {
 		// Create the new node
 		Node n = new Node(p,m,c);
@@ -51,12 +46,6 @@ public class CFG {
 		}
     }
 
-	/* Original test cases didn't satisfy NC nor EC, since we cannot be sure that
-       the added node in the original addEdge_oneNewNode() is indeed new to the CFG and therefore
-       will not cover the edges and nodes for adding the new node.
-       Added addEdge_oneNewNodeImproved() to make sure that at least one of the nodes is
-       definitely new to the CFG, and will satisfy TR of adding the new node if it is not in the CFG
-     */
     public void addEdge(int p1, MethodNode m1, ClassNode c1,
 			int p2, MethodNode m2, ClassNode c2) {
 		// Create new nodes
@@ -73,12 +62,6 @@ public class CFG {
 		edges.get(n1).add(n2);
 	}
 
-	/* The test cases provided for deleteNode() satisfies NC and EC.
-	   deleteNode() covers the nodes and edges of my method's CFG when the targeted
-	   node exists in the cfg.
-	   deleteNode_missing() covers the nodes and edges of my method's CFG when the
-	   targeted node is not in the cfg.
-	 */
 	public void deleteNode(int p, MethodNode m, ClassNode c) {
 		// Create node to see if it exits in nodes set
 		Node target = new Node(p, m , c);
@@ -94,13 +77,6 @@ public class CFG {
 		}
     }
 
-	/* The test cases provided for deleteEdge() satisfies NC and EC.
-       deleteEdge() covers the nodes and edges of my method's CFG when both of the
-       nodes are in the CFG and the edge from source to target is removed.
-       deleteEdge_missing() and deleteEdge_MissingSrc() covers the nodes and edges
-       of my method's CFG when either the source, the target, or both are missing
-       and the CFG stays unchanged.
-     */
     public void deleteEdge(int p1, MethodNode m1, ClassNode c1,
 						int p2, MethodNode m2, ClassNode c2) {
 		// Create nodes to check if they exist in nodes set
@@ -110,18 +86,7 @@ public class CFG {
 			edges.get(n1).remove(n2);
 		}
     }
-	
-	/* The test cases provided for isReachable() satisfies NC and EC.
-       reachable_true() covers the nodes and edges of my method's CFG when both of the
-       nodes are in the CFG and n1 does indeed reach n2.
 
-       reachable_unreachable() covers the nodes and edges
-       of my method's CFG when n1 doesn't reach n2.
-
-       reachable_missingSrc() and reachable_missingTarget() both satisfies the node and edges
-       of my method's CFG when n1 or n2 is not in the cfg.
-
-	 */
     public boolean isReachable(int p1, MethodNode m1, ClassNode c1,
 			       int p2, MethodNode m2, ClassNode c2) {
 		// Check if both nodes exists in nodes set
