@@ -68,27 +68,27 @@ public class CFG {
 			addNode(p2, m2, c2);
 		}
 		// Add n2 to hashset of n1 in edge set
-		// Since Sets don't add new elements if it's already in the set,
+		// Since sets don't add new elements if it's already in the set,
 		// there is no need to check if n1 already has an edge to n2
 		edges.get(n1).add(n2);
 	}
 
 	/* The test cases provided for deleteNode() satisfies NC and EC.
 	   deleteNode() covers the nodes and edges of my method's CFG when the targeted
-	   node is in the CFG.
+	   node exists in the cfg.
 	   deleteNode_missing() covers the nodes and edges of my method's CFG when the
-	   targeted node is not in the CFG.
+	   targeted node is not in the cfg.
 	 */
 	public void deleteNode(int p, MethodNode m, ClassNode c) {
 		// Create node to see if it exits in nodes set
 		Node target = new Node(p, m , c);
 		if (nodes.contains(target)) {
-			// Remove node from nodes set
-			nodes.remove(target);
 			// Traverse through nodes set and delete edges to target
 			for (Node n : nodes) {
-				edges.get(n).remove(target);
+				deleteEdge(n.position, n.method, n.clazz, p, m, c);
 			}
+			// Remove target node from nodes set
+			nodes.remove(target);
 			// Remove target node from edges set
 			edges.remove(target);
 		}
@@ -111,7 +111,17 @@ public class CFG {
 		}
     }
 	
-	// TODO: Add explanation for NC and EC
+	/* The test cases provided for isReachable() satisfies NC and EC.
+       reachable_true() covers the nodes and edges of my method's CFG when both of the
+       nodes are in the CFG and n1 does indeed reach n2.
+
+       reachable_unreachable() covers the nodes and edges
+       of my method's CFG when n1 doesn't reach n2.
+
+       reachable_missingSrc() and reachable_missingTarget() both satisfies the node and edges
+       of my method's CFG when n1 or n2 is not in the cfg.
+
+	 */
     public boolean isReachable(int p1, MethodNode m1, ClassNode c1,
 			       int p2, MethodNode m2, ClassNode c2) {
 		// Check if both nodes exists in nodes set
